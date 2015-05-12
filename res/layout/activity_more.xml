@@ -76,20 +76,20 @@
         android:layout_alignLeft="@+id/name_more"
         android:text="mail" />
 
-     	
   <TableLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="240dip"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mail_more"
-        android:layout_marginLeft="25dip"
-        android:layout_marginTop="10dip" >
+      android:id="@+id/relativeLayout2"
+      android:layout_width="240dip"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/mail_more"
+      android:layout_marginLeft="25dip"
+      android:layout_marginTop="10dip"
+      android:orientation="vertical" >
 
         <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="300dip"
         android:layout_height="28dip"
-        android:layout_below="@+id/mail_more"
+        
         android:layout_marginTop="10dp"
       
         android:background="@drawable/back_more_button"
@@ -116,7 +116,6 @@
         android:id="@+id/tableRow2"
         android:layout_width="300dip"
         android:layout_height="28dip"
-        android:layout_below="@+id/tableRow1"
         android:layout_marginTop="2dp"
       
         android:background="@drawable/back_more_button"
@@ -143,7 +142,6 @@
         android:id="@+id/tableRow3"
         android:layout_width="300dip"
         android:layout_height="28dip"
-        android:layout_below="@+id/tableRow2"
         android:layout_marginTop="2dp"
       
         android:background="@drawable/back_more_button"
@@ -166,12 +164,10 @@
             android:textSize="16sp" />
     </TableRow>
     
-    
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow5"
         android:layout_width="300dip"
         android:layout_height="28dip"
-        android:layout_below="@+id/tableRow3"
         android:layout_marginTop="2dp"
       
         android:background="@drawable/back_more_button"
@@ -181,6 +177,32 @@
 
         <ImageView
             android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/order_img"/>
+
+        <Button
+            android:id="@+id/pos_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="位置服务"
+            android:textSize="16sp" />
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="300dip"
+        android:layout_height="28dip"
+        android:layout_marginTop="2dp"
+      
+        android:background="@drawable/back_more_button"
+        android:baselineAligned="false"
+        android:paddingLeft="30dp"
+        android:paddingRight="10dp" >
+
+        <ImageView
+            android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/menu_close" />

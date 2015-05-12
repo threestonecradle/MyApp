@@ -21,14 +21,14 @@ public class Doctor implements java.io.Serializable{
 	private String passwd;
 	private String sex; //sex
 	private Long doc_id;
-	private int age; //年龄
-	private String hospital; //医院
-	private String department; //科室
-	private String job; //职务
-	private String major; //主治
-	private String mail; //邮箱；
+	private int age; //脛锚脕盲
+	private String hospital; //脪陆脭潞
+	private String department; //驴脝脢脪
+	private String job; //脰掳脦帽
+	private String major; //脰梅脰脦
+	private String mail; //脫脢脧盲拢禄
 	private int isOnline;
-	private int mes_to_read; //未读消息树
+	private int mes_to_read; //脦麓露脕脧没脧垄脢梅
 	
 	public int getMes_to_read() {
 		return mes_to_read;
@@ -181,7 +181,7 @@ public class Doctor implements java.io.Serializable{
 	public static Doctor parse_json_to_obj(JSONObject ret) {
 		Doctor doc_ret = new Doctor();
 		try {
-			doc_ret.passwd = ret.getString("password");
+		//	doc_ret.passwd = ret.getString("password");
 			doc_ret.name = ret.getString("name");
 			doc_ret.age = Integer.parseInt(ret.getString("age"));
 			doc_ret.mail = ret.getString("email");

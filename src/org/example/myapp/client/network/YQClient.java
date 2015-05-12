@@ -399,6 +399,35 @@ public class YQClient {
 		return  obj;
 	}
 	
+	/**
+	 * @brief 获取医生列表
+	 */
+	public ReturnObj get_all_doc_list(int pageindex) {
+		
+		ReturnObj obj = new ReturnObj();
+		try {
+			HttpGet httpGet = new HttpGet(MyAppConfig.DOC_ALL_URL + Integer.toString(pageindex));  
+			
+			HttpResponse httpResponse = getThreadSafeClient().execute(httpGet);
+			InputStream inputStream = httpResponse.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					inputStream));
+			String str_all = "";
+			String line = "";
+			while (null != (line = reader.readLine())) {
+				str_all += line;
+			}
+
+			obj.paser_return_code(str_all);
+		
+		} catch (Exception e) {
+			 e.printStackTrace();
+			 obj.setMsg(e.getMessage());
+			 obj.setRet_code(-1);
+		}
+		
+		return  obj;
+	}
 	
 	/**
 	 * @brief 获取未读信息
@@ -794,5 +823,124 @@ public class YQClient {
              obj.setRet_code(1);
 		}
 		return  obj;
+	}
+	
+	
+	/** 
+	 * 获取健康信息
+	 * @param id 当前用户ID
+	 * @return
+	 */
+	public ReturnObj get_patient_health_stat(long id) {
+		ReturnObj obj = new ReturnObj();
+		try {
+			
+			HttpGet httpGet = new HttpGet(MyAppConfig.GET_PATIENT_HEALTH_STAT + Long.toString(id));  
+			
+			HttpResponse httpResponse = getThreadSafeClient().execute(httpGet);
+			InputStream inputStream = httpResponse.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					inputStream));
+			String str_all = "";
+			String line = "";
+			while (null != (line = reader.readLine())) {
+				str_all += line;
+			}
+			obj.paser_return_code(str_all);
+		} catch (Exception e) {
+			 e.printStackTrace();
+			 obj.setMsg(e.getMessage());
+			 obj.setRet_code(-1);
+		}
+		return obj;
+	}
+	
+	/** 
+	 * 获取心跳信息
+	 * @param id 当前用户ID
+	 * @return
+	 */
+	public ReturnObj get_patient_heartrate_list(long id) {
+		ReturnObj obj = new ReturnObj();
+		try {
+			
+			HttpGet httpGet = new HttpGet(MyAppConfig.GET_PATIENT_HEARTRATE_LIST + Long.toString(id) + "/50");  
+			
+			HttpResponse httpResponse = getThreadSafeClient().execute(httpGet);
+			InputStream inputStream = httpResponse.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					inputStream));
+			String str_all = "";
+			String line = "";
+			while (null != (line = reader.readLine())) {
+				str_all += line;
+			}
+			obj.paser_return_code(str_all);
+		} catch (Exception e) {
+			 e.printStackTrace();
+			 obj.setMsg(e.getMessage());
+			 obj.setRet_code(-1);
+		}
+		return obj;
+	}
+	
+	
+	/** 
+	 * 获取心跳信息
+	 * @param id 当前用户ID
+	 * @return
+	 */
+	public ReturnObj get_patient_device(long id) {
+		ReturnObj obj = new ReturnObj();
+		try {
+			
+			HttpGet httpGet = new HttpGet(MyAppConfig.GET_PATIENT_DEVICE + Long.toString(id));  
+			
+			HttpResponse httpResponse = getThreadSafeClient().execute(httpGet);
+			InputStream inputStream = httpResponse.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					inputStream));
+			String str_all = "";
+			String line = "";
+			while (null != (line = reader.readLine())) {
+				str_all += line;
+			}
+			obj.paser_return_code(str_all);
+		} catch (Exception e) {
+			 e.printStackTrace();
+			 obj.setMsg(e.getMessage());
+			 obj.setRet_code(-1);
+		}
+		return obj;
+	}
+	
+	
+	/** 
+	 * 获取心跳信息
+	 * @param id 当前用户ID
+	 * @return
+	 */
+	public ReturnObj get_patient_pos(String dev) {
+		ReturnObj obj = new ReturnObj();
+		try {
+			
+			HttpGet httpGet = new HttpGet(MyAppConfig.GET_PATIENT_LOC + dev);  
+			
+			HttpResponse httpResponse = getThreadSafeClient().execute(httpGet);
+			InputStream inputStream = httpResponse.getEntity().getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					inputStream));
+			String str_all = "";
+			String line = "";
+			while (null != (line = reader.readLine())) {
+				str_all += line;
+			}
+			obj.paser_return_code(str_all);
+		} catch (Exception e) {
+			 e.printStackTrace();
+			 obj.setMsg(e.getMessage());
+			 obj.setRet_code(-1);
+		}
+		return obj;
 	}
 }

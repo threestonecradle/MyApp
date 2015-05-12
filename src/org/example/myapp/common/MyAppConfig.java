@@ -33,6 +33,8 @@ public class MyAppConfig {
 	//获取当前用户医生的列表
 	public static final String USER_DOC_LIST_URL = "http://rj17701.sinaapp.com/index.php/doctorpatientrelationship/listing/";
 		
+	//获取所有医生的列表
+	public static final String DOC_ALL_URL = "http://rj17701.sinaapp.com/index.php/doctor/all/";
 	
 	//更新用户的信息
 	public static final String USER_UPDATE_INFO_URL = "http://rj17701.sinaapp.com/index.php/patient/update";
@@ -83,4 +85,15 @@ public class MyAppConfig {
 	//发表帖子评论
 	public static final String PATIENT_ADD_POST_COMMENT = "http://rj17701.sinaapp.com/index.php/comment/addFromMobile";
 
+	//获取健康信息
+	public static final String GET_PATIENT_HEALTH_STAT = "http://rj17701.sinaapp.com/index.php/healthyindex/statistics/";
+	
+	//获取心跳信息
+	public static final String GET_PATIENT_HEARTRATE_LIST = "http://rj17701.sinaapp.com/index.php/healthyindex/recent/";
+
+	//获取关联设备
+	public static final String GET_PATIENT_DEVICE = "http://rj17701.sinaapp.com/index.php/patient/getimeis/";
+
+	//获取loc
+	public static final String GET_PATIENT_LOC = "http://rj17701.sinaapp.com/index.php/location/last/";
 }

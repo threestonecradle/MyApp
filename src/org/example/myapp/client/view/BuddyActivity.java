@@ -31,6 +31,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,22 +39,33 @@ import android.widget.Toast;
 
 public class BuddyActivity extends Activity {
 	BroadcastMain  broadcastMain;
-	public ListView listView = null;
+	private ListView listview_my_docs = null;
+	private ListView listview_all_docs = null;
+	private Button frame_btn_my_docs = null;
+	private Button frame_btn_all_docs = null;
 	public String buddyStr = ""; 
 	public static List<Doctor> buddyEntityList = new ArrayList<Doctor>();//好友列表
 	public static BuddyAdapter ba = null;//好友列表的adapter	
 	
 	public static YQClient new_http_client = null;
 
+	public final static int CATALOG_ALL = 1;
+	public final static int CATALOG_MY = 2;
+	private int curDocCatalog = CATALOG_MY;
+	
 	Doctor temp;
 
-	public void paser_user_doc_list () {
+	public void paser_doc_list (final int catalog) {
 		if (new_http_client == null) {
 			return;
 		}
-		ReturnObj ret_obj =  new_http_client.get_user_doc_list(MainActivity.myUser.getId());
-	
-		if (ret_obj.getRet_code() == 0) {
+		ReturnObj ret_obj = null;
+		if (catalog == CATALOG_ALL)
+			ret_obj =  new_http_client.get_all_doc_list(0);
+		else
+			ret_obj =  new_http_client.get_user_doc_list(MainActivity.myUser.getId());
+		
+		if (null != ret_obj && ret_obj.getRet_code() == 0) {
 			buddyStr = ret_obj.getOrg_str();
 			buddyEntityList = Doctor.paser_str_to_objlist(buddyStr);
 		} else {
@@ -140,7 +152,7 @@ public class BuddyActivity extends Activity {
 	
 	protected void onResume() {
 		updateInfo();
-		
+		LoadDocList(curDocCatalog);
 		if (new_http_client != null) {
 			get_user_doc_msg_toread_read();
 		}
@@ -183,44 +195,96 @@ public class BuddyActivity extends Activity {
 		if (new_http_client == null) {
 			new_http_client = new YQClient(true);
 		}
-		paser_user_doc_list();
-        //填充数据
-		listView = (ListView) findViewById(R.id.listview);
+		
+		initFrameButton();
+		initFrameListView();
+		
+		
+		LoadDocList(curDocCatalog);
+	}
+	
+	private void LoadDocList(int catalog)
+	{
+		paser_doc_list(catalog);
+		ListView curlv =CATALOG_ALL == curDocCatalog?listview_all_docs:listview_my_docs;
 		ba = new BuddyAdapter(this, buddyEntityList);
-        listView.setAdapter(ba);
-        	    
-        setListViewListener();
+		curlv.setAdapter(ba);
 	}
 	
 	
+	private void initFrameButton()
+	{
+		frame_btn_my_docs = (Button) findViewById(R.id.frame_btn_my_docs);
+        frame_btn_all_docs = (Button) findViewById(R.id.frame_btn_all_docs);
+        
+        // 设置首选择项
+        frame_btn_my_docs.setEnabled(false);
+        
+        frame_btn_my_docs.setOnClickListener(frameDocBtnClick(
+        		frame_btn_my_docs, CATALOG_MY));
+        frame_btn_all_docs.setOnClickListener(frameDocBtnClick(
+        		frame_btn_all_docs, CATALOG_ALL));
+        
+	}
 	
-	private void setListViewListener() {
-		listView.setOnItemClickListener(new OnItemClickListener(){
+	private void initFrameListView()
+	{
+		listview_all_docs = (ListView) findViewById(R.id.listview_all_docs);
+		setListViewListener(listview_all_docs);
+		listview_my_docs = (ListView) findViewById(R.id.listview_my_docs);
+		setListViewListener(listview_my_docs);
+	}
+	
+	private View.OnClickListener frameDocBtnClick(final Button btn,
+			final int catalog) {
+		return new View.OnClickListener() {
+			public void onClick(View v) {
+				if (btn == frame_btn_my_docs) {
+					frame_btn_my_docs.setEnabled(false);
+					frame_btn_all_docs.setEnabled(true);
+					listview_my_docs.setVisibility(View.VISIBLE);
+					listview_all_docs.setVisibility(View.GONE);
+				} else {
+					frame_btn_my_docs.setEnabled(true);
+					frame_btn_all_docs.setEnabled(false);
+					listview_my_docs.setVisibility(View.GONE);
+					listview_all_docs.setVisibility(View.VISIBLE);
+				}
+//				if (btn == frame_btn_all_docs) {
+//					frame_btn_all_docs.setEnabled(false);
+//				} else {
+//					frame_btn_all_docs.setEnabled(true);
+//				}
+
+				curDocCatalog = catalog;
+				LoadDocList(curDocCatalog);
+//				
+//				// 非新闻列表
+//				if (btn == frame_btn_my_docs) {
+//					
+//					LoadDocList(listview_my_docs);
+//					
+//				} else {
+//					
+//					LoadDocList(listview_all_docs);
+//				}
+			}
+		};
+	}
+	
+	
+	private void setListViewListener(final ListView listview) {
+		listview.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> a, View v, int position,long l) {
-				temp= (Doctor) listView.getItemAtPosition(position);
+				temp= (Doctor) listview.getItemAtPosition(position);
 				//打开聊天页面
-				Intent intent=new Intent(BuddyActivity.this,ChatActivity.class);
+				Intent intent=new Intent(BuddyActivity.this,DoctorInfoActivity.class);
+				intent.putExtra("doccatalog", curDocCatalog);
 				intent.putExtra("tel", temp.getDoc_id());
 				intent.putExtra("name",temp.getName());
 				intent.putExtra("major", temp.getMajor());
 				intent.putExtra("isonline", temp.getIsOnline());
 				startActivity(intent);
-			}
-        });
-        listView.setOnItemLongClickListener(new OnItemLongClickListener(){
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,int position, long arg3) {
-				temp= (Doctor) listView.getItemAtPosition(position);
-				listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener(){
-					public void onCreateContextMenu(ContextMenu menu,
-							View arg1, ContextMenuInfo arg2) {
-						menu.setHeaderTitle("操作");
-						menu.add(0,0,0,"发起会话");
-						menu.add(0,1,0,"删除医生");
-						menu.add(0,2,0,"查看医生资料");
-						menu.add(0,3,0,"发起预约");
-					}
-				});
-				return false;
 			}
         });
 	}
@@ -247,9 +311,9 @@ public class BuddyActivity extends Activity {
 					buddyEntityList.remove(i);
 				}
 			}
-			listView = (ListView) findViewById(R.id.listview);
+			listview_all_docs = (ListView) findViewById(R.id.listview);
 			ba=new BuddyAdapter(this,buddyEntityList);
-	        listView.setAdapter(ba);
+			listview_all_docs.setAdapter(ba);
 			break;
 		case 2:
 			int ret_code = display_doc_info();

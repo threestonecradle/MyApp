@@ -159,6 +159,15 @@ public class MoreActivity extends Activity{
 			}
 		});
 
+		
+		Button btn_pos_service = (Button) findViewById(R.id.pos_service);
+		btn_pos_service.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0) {	
+				//Ìø³öÐÂµÄapp
+				startActivity(new Intent(MoreActivity.this, PosServiceActivity.class));
+			}
+		});
+
 	}
 
 }

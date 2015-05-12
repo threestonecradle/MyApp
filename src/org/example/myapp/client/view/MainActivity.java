@@ -32,11 +32,12 @@ public class MainActivity extends TabActivity {
 	private RadioGroup radioGroup;
 	private static final String BUDDY = "好友";
 	private static final String BBS = "论坛";
+	private static final String HEALTH= "健康";
 	private static final String MORE= "更多";
 	public Intent buddyIntent;
 	public Intent bbsIntent;
 	public Intent moreIntent;
-
+	public Intent healthIntent;
 	
 	
 	public static YQClient client_in_strict_mode;
@@ -60,9 +61,9 @@ public class MainActivity extends TabActivity {
 				case R.id.tab_buddy:
 					tabHost.setCurrentTabByTag(BUDDY);
 					break;
-				/*case R.id.tab_group:
-					tabHost.setCurrentTabByTag(GROUP);
-					break;*/
+				case R.id.tab_health:
+					tabHost.setCurrentTabByTag(HEALTH);
+					break;
 				case R.id.main_footbar_question:
 					tabHost.setCurrentTabByTag(BBS);
 					break;
@@ -160,11 +161,9 @@ public class MainActivity extends TabActivity {
 		buddyIntent= new Intent(this, BuddyActivity.class);
 		bbsIntent= new Intent(this, QuestionNewActivity.class);
 		bbsIntent.putExtra("post_tag", "问答");
-
-		
-		
 		moreIntent= new Intent(this, MoreActivity.class);
-	
+		healthIntent= new Intent(this, HealthActivity.class);
+		
 		TabSpec tabSpec1 = tabHost.newTabSpec(BUDDY).setIndicator(BUDDY)
 				.setContent(buddyIntent);
 		tabHost.addTab(tabSpec1);
@@ -172,9 +171,12 @@ public class MainActivity extends TabActivity {
 		TabSpec tabSpec2 = tabHost.newTabSpec(BBS).setIndicator(BBS)
 				.setContent(bbsIntent);
 		tabHost.addTab(tabSpec2);
-		TabSpec tabSpec3 = tabHost.newTabSpec(MORE).setIndicator(MORE)
-				.setContent(moreIntent);
+		TabSpec tabSpec3 = tabHost.newTabSpec(HEALTH).setIndicator(HEALTH)
+				.setContent(healthIntent);
 		tabHost.addTab(tabSpec3);
+		TabSpec tabSpec4 = tabHost.newTabSpec(MORE).setIndicator(MORE)
+				.setContent(moreIntent);
+		tabHost.addTab(tabSpec4);
 	}
 	
 	//显示通知栏图标

@@ -1,25 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>  
-<TabHost   
-    android:id="@android:id/tabhost"   
-    android:layout_width="fill_parent"   
-    android:layout_height="fill_parent" 
-    xmlns:android="http://schemas.android.com/apk/res/android">  
-      
-    <LinearLayout   
-        android:orientation="vertical"   
-        android:layout_width="fill_parent"   
-        android:layout_height="fill_parent">  
-        <FrameLayout   
-            android:id="@android:id/tabcontent"   
-            android:layout_width="fill_parent"   
-            android:layout_height="30dip"   
-            android:layout_weight="1.0" />  
-        <TabWidget   
-            android:id="@android:id/tabs"   
-            android:visibility="gone"   
-            android:layout_width="fill_parent"   
-            android:layout_height="wrap_content"   
-            android:layout_weight="0.0" />  
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:layout_weight="1.0" />
+
+        <TabWidget
+            android:id="@android:id/tabs"
+	    android:visibility="gone"   
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"/>
+
         <RadioGroup   
 	        android:id="@+id/main_radiogroup"  
 	        android:gravity="center_vertical" 
@@ -30,7 +32,8 @@
 	        android:background="@drawable/tabbar_bg_nor"  
 	        android:layout_width="fill_parent"   
 	        android:layout_height="wrap_content">  
-      <!-- 
+
+            <!--
             <RadioButton   
                 android:id="@+id/tab_recent"   
                 android:checked="true"   
@@ -38,33 +41,45 @@
                 android:textColor="@color/tab_text"
                 android:background="@drawable/tabbar_bg_selector"
                 android:drawableTop="@drawable/tab_recent_selector"
-                style="@style/tab_btn" />      
-          -->       
+                style="@style/tab_btn" /> 
+            -->
+
             <RadioButton   
                 android:id="@+id/tab_buddy" 
-                android:text="我的医生"
+                android:text="医生服务"
                 android:checked="true"   
                 android:textColor="@color/tab_text"
                 android:background="@drawable/tabbar_bg_selector"
                 android:drawableTop="@drawable/tab_buddy_selector"   
                 style="@style/tab_btn" />  
-    		
+
+
+            <RadioButton
+                android:id="@+id/tab_health"
+                style="@style/tab_btn"
+                android:background="@drawable/tabbar_bg_selector"
+                android:drawableTop="@drawable/tab_buddy_selector"
+                android:text="健康信息"
+                android:textColor="@color/tab_text" />
+
             <RadioButton   
                 android:id="@+id/main_footbar_question"   
-                android:text="论坛" 
+                android:text="问答" 
                 android:textColor="@color/tab_text"
                 android:background="@drawable/tabbar_bg_selector"
                 android:drawableTop="@drawable/tab_qzone_selector"   
                 style="@style/tab_btn" />
-            <!--  
+
+            <!--
             <RadioButton   
                 android:id="@+id/tab_trends"   
                 android:text="动态" 
                 android:textColor="@color/tab_text"
                 android:background="@drawable/tabbar_bg_selector"
                 android:drawableTop="@drawable/tab_qzone_selector"   
-                style="@style/tab_btn" />    
+                style="@style/tab_btn" />  
             -->
+
             <RadioButton   
                 android:id="@+id/tab_more"
                 android:text="更多"   
@@ -72,6 +87,8 @@
                 android:background="@drawable/tabbar_bg_selector"
                 android:drawableTop="@drawable/tab_more_selector" 
                 style="@style/tab_btn" /> 
-        </RadioGroup>     
-    </LinearLayout>  
-</TabHost>  
+
+        </RadioGroup>
+    </LinearLayout>
+
+</TabHost>

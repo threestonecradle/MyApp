@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class LoginActivity extends Activity {
 	public static String userInfo;
 	EditText accountEt,passwordEt;
@@ -33,7 +34,7 @@ public class LoginActivity extends Activity {
 	    setContentView(R.layout.activity_login);
 	    
 	    MainActivity.client_in_strict_mode = new YQClient();
-	   
+
 	    
 	    SharedPreferences mySharedPreferences= getSharedPreferences(MyAppConfig.SHARE_PREFERENCE_FILE, 
 	    		Activity.MODE_PRIVATE); 
