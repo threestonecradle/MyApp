@@ -38,8 +38,8 @@ public class Position {
 			JSONObject ret = (JSONObject)(jsonParser.nextValue());
 			JSONObject post_json_obj = ret.getJSONObject("content");
 			Position pos = new Position();
-			pos.setL1(Double.parseDouble(post_json_obj.getString("lon")));
-			pos.setL2(Double.parseDouble(post_json_obj.getString("lat")));
+			pos.setL1(Double.parseDouble(post_json_obj.getString("lat"))/100);
+			pos.setL2(Double.parseDouble(post_json_obj.getString("lon"))/100);
 					
 			return pos;	
 		} catch (Exception e) {

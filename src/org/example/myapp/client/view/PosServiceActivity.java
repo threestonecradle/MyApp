@@ -19,6 +19,9 @@ import com.baidu.mapapi.map.ArcOptions;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.CircleOptions;
 import com.baidu.mapapi.map.DotOptions;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolygonOptions;
@@ -48,22 +51,32 @@ public class PosServiceActivity extends Activity {
 		// 初始化地图
 		SDKInitializer.initialize(this);
 		mMapView = (MapView) findViewById(R.id.bmapView);
+		
+		
 		mBaiduMap = mMapView.getMap();
-
+		
 		Position pos = get_pat_pos();
 		if (pos == null) {
 			Toast.makeText(PosServiceActivity.this, "获取位置信息失败", Toast.LENGTH_SHORT).show();
 		} else {
 			// 界面加载时添加绘制图层
-			addCustomElementsDemo(pos.getL1(),pos.getL2());
+			addCustomElementsDemo(pos.getL1(), pos.getL2());
+
+			LatLng cenpt = new LatLng(pos.getL1(), pos.getL2());
+			// 定义地图状态
+			MapStatus mMapStatus = new MapStatus.Builder().target(cenpt).build();
+			// 定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+
+			MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory
+					.newMapStatus(mMapStatus);
+			// 改变地图状态
+			mBaiduMap.setMapStatus(mMapStatusUpdate);
 		}
 	}
 
 	
 	 // 添加点、线、多边形、圆、文字
 	public void addCustomElementsDemo(double l1, double l2) {
-		l1 = 39.97923;
-		l2 = 116.357428;
 		LatLng llDot = new LatLng(l1, l2);
 		OverlayOptions ooDot = new DotOptions().center(llDot).radius(10)
 				.color(0xAAFF0000);
