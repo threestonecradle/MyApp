@@ -31,7 +31,8 @@
         android:name="org.example.myapp.client.view.DemoApplication" >
         <meta-data  
         	android:name="com.baidu.lbsapi.API_KEY"  
-        	android:value="6RpbE1SamKsYiX4ENQy66TxC" /> 
+        	android:value="UblLOfdgi1bHhhiaNKZ9yo3k"/> 
+        
         <activity android:name=".client.view.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

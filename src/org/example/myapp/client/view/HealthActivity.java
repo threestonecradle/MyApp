@@ -105,6 +105,8 @@ public class HealthActivity extends Activity {
 			}
 			i = i + 1;
 		}
+		ymin = 40;
+		ymax = 120;
 		int[] colors = new int[] { Color.BLUE };
 		PointStyle[] styles = new PointStyle[] { PointStyle.POINT };
 		// 多个渲染
@@ -115,18 +117,10 @@ public class HealthActivity extends Activity {
 
 		setChartSettings(renderer, "心跳图", "Date", "心跳",
 				dates.get(0)[0].getTime(),
-				dates.get(0)[heartlistsize - 1].getTime(), ymin - 10,
-				ymax + 10, Color.BLACK, Color.LTGRAY);
+				dates.get(0)[heartlistsize - 1].getTime(), ymin,
+				ymax, Color.BLACK, Color.LTGRAY);
 
-		// 设置x轴标签数
-		renderer.setXLabels(heartlistsize / 8);
-		// 设置Y轴标签数
-		renderer.setYLabels(heartlistsize / 4);
-		renderer.setMarginsColor(0x00888888);
 		int length = renderer.getSeriesRendererCount();
-		renderer.setPanLimits(new double[] { dates.get(0)[0].getTime() - 100,
-				dates.get(0)[heartlistsize - 1].getTime() + 100, ymin - 10,
-				ymax + 10 });
 		/***************/
 		for (i = 0; i < length; i++) {
 			SimpleSeriesRenderer ssr = renderer.getSeriesRendererAt(i);
@@ -134,9 +128,19 @@ public class HealthActivity extends Activity {
 			ssr.setChartValuesTextSize(12);
 			ssr.setDisplayChartValues(true);
 		}
+		// 设置x轴标签数
+		renderer.setXLabels(heartlistsize / 8);
+		// 设置Y轴标签数
+		renderer.setYLabels(heartlistsize / 6);
+		renderer.setMarginsColor(0x00888888);
+		
+		renderer.setPanLimits(new double[] { dates.get(0)[0].getTime() - 100,
+				dates.get(0)[heartlistsize - 1].getTime() + 100, ymin - 10,
+				ymax + 10 });
+	
 
 		GraphicalView mChartView = ChartFactory.getTimeChartView(
-				getApplicationContext(), dataset, renderer, "MM/dd HH:mm");
+				getApplicationContext(), dataset, renderer, "dd号HH点");
 		return mChartView;
 	}
 
@@ -156,7 +160,7 @@ public class HealthActivity extends Activity {
 
 		// 设置x轴和y轴的标签对齐方式
 		renderer.setXLabelsAlign(Align.CENTER);
-		renderer.setYLabelsAlign(Align.RIGHT);
+		renderer.setYLabelsAlign(Align.CENTER);
 
 		// 设置现实网格
 		renderer.setShowGrid(true);
@@ -173,7 +177,6 @@ public class HealthActivity extends Activity {
 
 		// 设置图例的字体大小
 		renderer.setLegendTextSize(12);
-
 	}
 
 	protected void onResume() {
@@ -196,6 +199,8 @@ public class HealthActivity extends Activity {
 			XYSeriesRenderer r = new XYSeriesRenderer();
 			r.setColor(colors[i]);
 			r.setPointStyle(styles[i]);
+			//r.setPointStyle(PointStyle.TRIANGLE);				
+			
 			renderer.addSeriesRenderer(r);
 		}
 		return renderer;
